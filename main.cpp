@@ -116,37 +116,27 @@ int main(){
     else   
         cout << "Failed: Hash of Directory 1" << endl;
 
-    vector<string> direct1_only, shared_files, direct2_only;
+    // 0 = shared_files, 1 = direct1_only, 2 = direct2_only
+    vector<vector<string>> sortedDirect(3);
 
-    if(compareDirect(direct1_hash, paths[1], shared_files, direct2_only))
+    if(compareDirect(direct1_hash, paths[1], sortedDirect[0], sortedDirect[2]))
         cout << "Success: Compared all elements in Directory 2" << endl;
     else   
         cout << "Failed: Check direct1_hash, direct2_files, or either output vectors" << endl;
 
-    if(clearHashDirect(direct1_hash, direct1_only))
+    if(clearHashDirect(direct1_hash, sortedDirect[1]))
         cout << "Success: Cleared unordered_map of Directory 1" << endl;
     else    
         cout << "Failed: Unable to clear unordered_map of Directory 1" << endl;
 
     vector<string> outputFiles = {"shared_files.txt", "direct1_only.txt", "direct2_only.txt"};
 
-    if(writeFiles(outputFiles[0], shared_files))
-        cout << "Success: Files have been written to shared files" << endl;
-    else    
-        cout << "Failed: Files cannot be written to shared files" << endl;
-    
-    cout << 2 << endl;
-
-    if(writeFiles(outputFiles[1], direct1_only))
-        cout << "Success: Files have been written to Directory 1" << endl;
-    else    
-        cout << "Failed: Files cannot be written to Directory 1" << endl;
-    
-    if(writeFiles(outputFiles[2], direct2_only))
-        cout << "Success: Files have been written to Directory 2" << endl;
-    else    
-        cout << "Failed: Files cannot be written to Directory 2" << endl;
-
+    for(int i = 0; i < sortedDirect.size(); i++){
+        if(writeFiles(outputFiles[i], sortedDirect[i]))
+            cout << "Success: Files have been generate for " << outputFiles[i] << endl;
+        else    
+            cout << "Failed: Files cannot be generated for " << outputFiles[i] << endl;
+    }
 
     return 0;
 }
