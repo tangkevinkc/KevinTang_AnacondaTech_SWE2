@@ -101,6 +101,8 @@ bool writeFiles(string filename, vector<string> &files){
 
 int main(){ 
     removeCurrDirect();
+    // int direct1_size = 5, direc2_size = 10;
+    // generateTestFiles(direct1_size, direc2_size);
 
     filesystem::path dir(filesystem::current_path() / "files");
     vector<string> paths;
@@ -111,8 +113,8 @@ int main(){
                 paths.push_back(name.path().filename().string());
             }
         }
-        if(paths.empty()){
-            cout << "ERROR: Found 0 directories" << endl;
+        if(paths.size() != 2){
+            cout << "ERROR: Directory requirements not met" << endl;
             exit(0);
         }
     }
