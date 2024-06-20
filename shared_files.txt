@@ -1,6 +1,11 @@
 shared_files.txt files: 
 direct_1: files/directory1/0, direct_2: files/directory2/0
-direct_1: files/directory1/1, direct_2: files/directory2/1
-direct_1: files/directory1/2, direct_2: files/directory2/2
-direct_1: files/directory1/3, direct_2: files/directory2/3
-direct_1: files/directory1/4, direct_2: files/directory2/4
+direct_1: files/directory1/10, direct_2: files/directory2/4
+direct_1: files/directory1/15, direct_2: files/directory2/6
+direct_1: files/directory1/20, direct_2: files/directory2/8
+direct_1: files/directory1/25, direct_2: files/directory2/10
+direct_1: files/directory1/30, direct_2: files/directory2/12
+direct_1: files/directory1/35, direct_2: files/directory2/14
+direct_1: files/directory1/40, direct_2: files/directory2/16
+direct_1: files/directory1/45, direct_2: files/directory2/18
+direct_1: files/directory1/5, direct_2: files/directory2/2

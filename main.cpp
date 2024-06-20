@@ -93,6 +93,7 @@ bool writeFiles(string filename, vector<string> &files){
     if(filesystem::remove(filename) == false){
         cout << "FAILED: To removed " << filename << endl;
     }
+    sort(files.begin(), files.end());
     ofstream output(filename);
     output << filename << " files: \n";
     for(auto x : files){
@@ -103,8 +104,8 @@ bool writeFiles(string filename, vector<string> &files){
 
 int main(){ 
     removeCurrDirect();
-    int direct1_size = 5, direc2_size = 10;
-    if(generateTestFiles(direct1_size, direc2_size)){
+    int direct1_size = 50, direc2_size = 50, d1_mod = 2, d2_mod = 5;
+    if(generateTestFiles(direct1_size, direc2_size, d1_mod, d2_mod)){
         cout << "SUCCESS: created test files" << endl;
     }
     else{
