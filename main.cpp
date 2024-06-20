@@ -11,36 +11,11 @@ using namespace std;
 
 // 1. get file names from directories and place into vector<string>direct1, direct2
 // 2. generate hash value for each file from direct1 and place into unordered_map<size_t, filename>D1_hash
-
 // 3. iterate through direct2 and generate hash value for each file and D1_hash.find() to see if it exists
 //    based on the return statement determine if file is placed into shared or direct2_only file
 //    if it is shared make sure to remove from unordered_map
-
 // 4. after finishing direct2, all remaining elements in D1_hash should be direct1_only file
 // 5. iterate through D1_hash and get the key of each index and place into direct1_only file
-
-// #define MAX_DIRECTORIES 2
-
-// bool getDirectFiles(vector<string> paths, vector<string> &fileNames1, vector<string> &fileNames2){
-//     if(!paths.empty()){
-//         for(int i = 0; i < MAX_DIRECTORIES; i++){
-//             filesystem::directory_iterator dir(filesystem::current_path() / "files" / paths[i]);
-//             for(const auto &file: dir){
-//                 if(file.is_regular_file()){
-//                     if(i == 0)
-//                         fileNames1.push_back(file.path().filename().string());
-//                     if(i == 1)
-//                         fileNames2.push_back(file.path().filename().string());
-//                 }
-//                 else{
-//                     cout << "Non file exist in " << paths[i] << endl;
-//                 }
-//             }
-//         }
-//         return true;
-//     }
-//     return false;
-// }
 
 bool hashDirectOneFiles(string path, unordered_map<size_t, string> &hash_files){
     if(path != ""){
@@ -104,12 +79,20 @@ bool clearHashDirect(unordered_map<size_t, string> &direct_hash, vector<string> 
         for(const auto &pair : direct_hash){
             direct_only.push_back(pair.second);
         }
+        direct_hash.clear();
         return true;
     }
     return false;
 }
 
 bool writeFiles(string filename, vector<string> &files){
+    if(!files.empty()){
+        ofstream output(filename);
+        for(auto x : files){
+            output << x << "\n";
+        }
+        return true;
+    }
     return false;
 }
 
@@ -126,23 +109,12 @@ int main(){
         exit(0);
     }
 
-    // vector<string> direct1_files, direct2_files;
-    
-    // if(getDirectFiles(paths, direct1_files, direct2_files))
-    //     cout << "Success: retrieving Directory files" << endl;
-    // else
-    //     cout << "Failed: to retrieve Directory files" << endl;
-
     unordered_map<size_t, string> direct1_hash;
 
     if(hashDirectOneFiles(paths[0], direct1_hash))
         cout << "Success: Hash of Directory 1" << endl;
     else   
         cout << "Failed: Hash of Directory 1" << endl;
-
-    // for_each(direct1_hash.begin(), direct1_hash.end(), [](const auto& pair){
-    //     cout << "hash value: " << pair.first << ", hash key: " << pair.second << endl;
-    // });
 
     vector<string> direct1_only, shared_files, direct2_only;
 
@@ -156,37 +128,25 @@ int main(){
     else    
         cout << "Failed: Unable to clear unordered_map of Directory 1" << endl;
 
-    cout << "Shared Files: " << endl;
-    for(auto x : shared_files){
-        cout << x << endl;
-    }
-    cout << "Direct1_only Files: " << endl;
-    for(auto x : direct1_only){
-        cout << x << endl;
-    }
-    cout << "Direct2_only Files: " << endl;
-    for(auto x : direct2_only){
-        cout << x << endl;
-    }
+    vector<string> outputFiles = {"shared_files.txt", "direct1_only.txt", "direct2_only.txt"};
 
+    if(writeFiles(outputFiles[0], shared_files))
+        cout << "Success: Files have been written to shared files" << endl;
+    else    
+        cout << "Failed: Files cannot be written to shared files" << endl;
+    
     cout << 2 << endl;
 
-    // vector<string> outputFiles = {"shared_files", "direct1_only", "direct2_only"};
-
-    // if(writeFiles(outputFiles[0], shared_files))
-    //     cout << "Success: Files have been written to shared files" << endl;
-    // else    
-    //     cout << "Failed: Files cannot be written to shared files" << endl;
-
-    // if(writeFiles(outputFiles[1], direct1_only))
-    //     cout << "Success: Files have been written to Directory 1" << endl;
-    // else    
-    //     cout << "Failed: Files cannot be written to Directory 1" << endl;
+    if(writeFiles(outputFiles[1], direct1_only))
+        cout << "Success: Files have been written to Directory 1" << endl;
+    else    
+        cout << "Failed: Files cannot be written to Directory 1" << endl;
     
-    // if(writeFiles(outputFiles[2], direct2_only))
-    //     cout << "Success: Files have been written to Directory 2" << endl;
-    // else    
-    //     cout << "Failed: Files cannot be written to Directory 2" << endl;
+    if(writeFiles(outputFiles[2], direct2_only))
+        cout << "Success: Files have been written to Directory 2" << endl;
+    else    
+        cout << "Failed: Files cannot be written to Directory 2" << endl;
+
 
     return 0;
 }
