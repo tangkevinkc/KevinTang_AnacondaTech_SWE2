@@ -22,7 +22,7 @@ void removeCurrDirect(){
 }
 
 bool generateTestFiles(int direct1_size, int d1_name, int d1_mod, int direct2_size, int d2_name, int d2_mod){
-    if(direct1_size > 0 && direct2_size > 0){
+    if(direct1_size >= 0 && direct2_size >= 0){
         if(CreateDirectory("files/directory1", NULL) == -1){
             cout << "Error Creating directory 1" << endl;
         }
@@ -39,6 +39,6 @@ bool generateTestFiles(int direct1_size, int d1_name, int d1_mod, int direct2_si
         }
         return true;
     }
-    cout << "Direct 1 or 2 size is less than or equal to 0" << endl;
+    cout << "Direct 1 or 2 size is less than 0" << endl;
     return false;
 }
