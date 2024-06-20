@@ -1,1 +1,6 @@
-direct_1: files/directory1/1.txt, direct_2: directory2/2.txt
+shared_files.txt files: 
+direct_1: files/directory1/0, direct_2: files/directory2/0
+direct_1: files/directory1/1, direct_2: files/directory2/1
+direct_1: files/directory1/2, direct_2: files/directory2/2
+direct_1: files/directory1/3, direct_2: files/directory2/3
+direct_1: files/directory1/4, direct_2: files/directory2/4

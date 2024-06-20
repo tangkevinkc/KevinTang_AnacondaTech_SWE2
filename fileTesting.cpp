@@ -42,12 +42,3 @@ bool generateTestFiles(int direct1_size, int direct2_size){
     cout << "Direct 1 or 2 size is less than or equal to 0" << endl;
     return false;
 }
-
-// if(!files.empty()){
-//         ofstream output(filename);
-//         for(auto x : files){
-//             output << x << "\n";
-//         }
-//         return true;
-//     }
-//     return false;

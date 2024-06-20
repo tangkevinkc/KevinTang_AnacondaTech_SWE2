@@ -1,1 +1,1 @@
-files/directory1/2.txt
+direct1_only.txt files: 

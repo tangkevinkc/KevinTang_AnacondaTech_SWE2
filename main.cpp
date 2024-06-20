@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <algorithm>
 #include <fstream>
+#include <cstdio>
 
 // Testing functions
 #include "fileTesting.cpp"
@@ -57,7 +58,7 @@ bool compareDirect(unordered_map<size_t, string> &direct1_hash, string path2, ve
                     size_t hashVal2 = hashKey(data2);
 
                     if(direct1_hash.find(hashVal2) != direct1_hash.end()){
-                        shared_files.push_back("direct_1: " + direct1_hash[hashVal2] + ", direct_2: " + path2 + "/" + it.path().filename().string());
+                        shared_files.push_back("direct_1: " + direct1_hash[hashVal2] + ", direct_2: files/" + path2 + "/" + it.path().filename().string());
                         direct1_hash.erase(hashVal2);
                     }
                     else{
@@ -89,14 +90,15 @@ bool clearHashDirect(unordered_map<size_t, string> &direct_hash, vector<string> 
 }
 
 bool writeFiles(string filename, vector<string> &files){
-    if(!files.empty()){
-        ofstream output(filename);
-        for(auto x : files){
-            output << x << "\n";
-        }
-        return true;
+    if(filesystem::remove(filename) == false){
+        cout << "FAILED: To removed " << filename << endl;
     }
-    return false;
+    ofstream output(filename);
+    output << filename << " files: \n";
+    for(auto x : files){
+        output << x << "\n";
+    }
+    return true;
 }
 
 int main(){ 
@@ -109,7 +111,7 @@ int main(){
         cout << "FAILED: did not create test files" << endl;
         exit(0);
     }
-exit(0);
+
     filesystem::path dir(filesystem::current_path() / "files");
     vector<string> paths;
     if(filesystem::exists(dir)){
@@ -151,6 +153,9 @@ exit(0);
     if(clearHashDirect(direct1_hash, sortedDirect[1])){
         cout << "Success: Cleared unordered_map of Directory 1" << endl;
     }
+    else if(direct1_hash.size() == 0){
+        cout << "WARNING: Direct1_hash size 0" << endl;
+    }
     else{
         cout << "Failed: Unable to clear unordered_map of Directory 1" << endl;
     }
@@ -165,8 +170,5 @@ exit(0);
             cout << "Failed: Files cannot be generated for " << outputFiles[i] << endl;
         }
     }
-
-    cout << 1 << endl;
-
     return 0;
 }

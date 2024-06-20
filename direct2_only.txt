@@ -1,1 +1,6 @@
-files/directory2/6.txt
+direct2_only.txt files: 
+files/directory2/5
+files/directory2/6
+files/directory2/7
+files/directory2/8
+files/directory2/9
