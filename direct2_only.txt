@@ -1,10 +1,16 @@
 direct2_only.txt files: 
 files/directory2/1
+files/directory2/10
 files/directory2/11
+files/directory2/12
 files/directory2/13
+files/directory2/14
 files/directory2/15
+files/directory2/16
 files/directory2/17
+files/directory2/18
 files/directory2/19
+files/directory2/2
 files/directory2/20
 files/directory2/21
 files/directory2/22
@@ -26,6 +32,7 @@ files/directory2/36
 files/directory2/37
 files/directory2/38
 files/directory2/39
+files/directory2/4
 files/directory2/40
 files/directory2/41
 files/directory2/42
@@ -37,5 +44,7 @@ files/directory2/47
 files/directory2/48
 files/directory2/49
 files/directory2/5
+files/directory2/6
 files/directory2/7
+files/directory2/8
 files/directory2/9
