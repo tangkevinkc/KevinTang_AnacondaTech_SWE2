@@ -104,8 +104,9 @@ bool writeFiles(string filename, vector<string> &files){
 
 int main(){ 
     removeCurrDirect();
-    int direct1_size = 50, direc2_size = 50, d1_mod = 0xFFAD, d2_mod = 0xFFAB;
-    if(generateTestFiles(direct1_size, direc2_size, d1_mod, d2_mod)){
+    int direct1_size = 100, d1_name = 0xFFFF, d1_mod = 0x8888;
+    int direct2_size = 100, d2_name = 0xABAB, d2_mod = 0x4444;
+    if(generateTestFiles(direct1_size, direct2_size, d1_name, d1_mod, d2_name, d2_mod)){
         cout << "SUCCESS: created test files" << endl;
     }
     else{
