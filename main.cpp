@@ -9,13 +9,12 @@
 
 using namespace std;
 
-// 1. get file names from directories and place into vector<string>direct1, direct2
-// 2. generate hash value for each file from direct1 and place into unordered_map<size_t, filename>D1_hash
-// 3. iterate through direct2 and generate hash value for each file and D1_hash.find() to see if it exists
-//    based on the return statement determine if file is placed into shared or direct2_only file
-//    if it is shared make sure to remove from unordered_map
-// 4. after finishing direct2, all remaining elements in D1_hash should be direct1_only file
-// 5. iterate through D1_hash and get the key of each index and place into direct1_only file
+// 1. generate unordered_map<size_t, filepath> for directory 1
+// 2. iterate through directory 2 and generate hash value for each file to use in direct1_hash.find()
+//    if true, there is a shared file, place into shared_files vector, and remove from unordered_map
+//    if false, place directory 2 file into direct2_only vector
+// 3. all remaining values of direct1_hash are direct1_only, so move them into the vector and clear map
+// 4. take shared_files, direct1_only, and direct2_only vectors and write to its corresponding new txt files
 
 bool hashDirectOneFiles(string path, unordered_map<size_t, string> &hash_files){
     if(path != ""){
