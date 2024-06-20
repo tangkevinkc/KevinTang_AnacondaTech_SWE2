@@ -101,9 +101,15 @@ bool writeFiles(string filename, vector<string> &files){
 
 int main(){ 
     removeCurrDirect();
-    // int direct1_size = 5, direc2_size = 10;
-    // generateTestFiles(direct1_size, direc2_size);
-
+    int direct1_size = 5, direc2_size = 10;
+    if(generateTestFiles(direct1_size, direc2_size)){
+        cout << "SUCCESS: created test files" << endl;
+    }
+    else{
+        cout << "FAILED: did not create test files" << endl;
+        exit(0);
+    }
+exit(0);
     filesystem::path dir(filesystem::current_path() / "files");
     vector<string> paths;
     if(filesystem::exists(dir)){
@@ -125,31 +131,39 @@ int main(){
 
     unordered_map<size_t, string> direct1_hash;
 
-    if(hashDirectOneFiles(paths[0], direct1_hash))
+    if(hashDirectOneFiles(paths[0], direct1_hash)){
         cout << "Success: Hash of Directory 1" << endl;
-    else   
+    }
+    else{
         cout << "Failed: Hash of Directory 1" << endl;
+    }
 
     // 0 = SHARED_FILES, 1 = DIRECT1_ONLY, 2 = DIRECT2_ONLY
     vector<vector<string>> sortedDirect(3);
 
-    if(compareDirect(direct1_hash, paths[1], sortedDirect[0], sortedDirect[2]))
+    if(compareDirect(direct1_hash, paths[1], sortedDirect[0], sortedDirect[2])){
         cout << "Success: Compared all elements in Directory 2" << endl;
-    else   
+    }
+    else{
         cout << "Failed: Check direct1_hash, direct2_files, or either output vectors" << endl;
+    }
 
-    if(clearHashDirect(direct1_hash, sortedDirect[1]))
+    if(clearHashDirect(direct1_hash, sortedDirect[1])){
         cout << "Success: Cleared unordered_map of Directory 1" << endl;
-    else    
+    }
+    else{
         cout << "Failed: Unable to clear unordered_map of Directory 1" << endl;
+    }
 
     vector<string> outputFiles = {"shared_files.txt", "direct1_only.txt", "direct2_only.txt"};
 
     for(int i = 0; i < outputFiles.size(); i++){
-        if(writeFiles(outputFiles[i], sortedDirect[i]))
+        if(writeFiles(outputFiles[i], sortedDirect[i])){
             cout << "Success: Files have been generate for " << outputFiles[i] << endl;
-        else    
+        }
+        else{
             cout << "Failed: Files cannot be generated for " << outputFiles[i] << endl;
+        }
     }
 
     cout << 1 << endl;

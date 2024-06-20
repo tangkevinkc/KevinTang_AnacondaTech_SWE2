@@ -3,6 +3,7 @@
 #include <fstream>
 #include <iostream>
 #include <filesystem>
+#include <windows.h>
 
 using namespace std;
 
@@ -21,9 +22,23 @@ void removeCurrDirect(){
 }
 
 bool generateTestFiles(int direct1_size, int direct2_size){
-    // if(direct1_size > 0 && direct2_size > 0){
-    //     ofstream output
-    // }
+    if(direct1_size > 0 && direct2_size > 0){
+        if(CreateDirectory("files/directory1", NULL) == -1){
+            cout << "Error Creating directory 1" << endl;
+        }
+        if(CreateDirectory("files/directory2", NULL) == -1){
+            cout << "Error Creating directory 2" << endl;
+        }
+        for(int i = 0; i < direct1_size; i++){
+            ofstream output("files/directory1/" + to_string(i));
+            output << i << "\n";
+        }
+        for(int i = 0; i < direct2_size; i++){
+            ofstream output("files/directory2/" + to_string(i));
+            output << i << "\n";
+        }
+        return true;
+    }
     cout << "Direct 1 or 2 size is less than or equal to 0" << endl;
     return false;
 }
