@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <iostream>
 
 using namespace std;
 
-// assume directory trees can have up to 100,000 files
 // 1. get file names from directories and place into vector<string>direct1, direct2
 // 2. generate hash value for each file from direct1 and place into unordered_map<size_t, filename>D1_hash
 // 3. iterate through direct2 and generate hash value for each file and D1_hash.find() to see if it exists
@@ -13,17 +14,85 @@ using namespace std;
 // 5. after finishing direct2, all remaining elements in D1_hash should be direct1_only file
 // 6. iterate through D1_hash and get the key of each index and place into direct1_only file
 
-bool getFiles(string direct, vector<string> &fileNames){
-    // pull file names from directory and place into vector
-    // return false if directory is invalid and return true if operation is done
-
+bool getDirectFiles(string direct, vector<string> &fileNames){
     return false;
 }
 
+bool hashDirectFiles(vector<string> &fileNames, unordered_map<size_t, string> &hash_files){
+    return false;
+}
 
+bool compareDirect(unordered_map<size_t, string> &direct1_hash, vector<string> &direct2, 
+                   vector<string> &shared_files, vector<string> &direct2_only){
+    return false;
+}
+
+bool clearHashDirect(unordered_map<size_t, string> &direct_hash, vector<string> &direct_only){
+    return false;
+}
+
+bool writeFiles(string filename, vector<string> &files){
+    return false;
+}
 
 int main(){ 
     // call necessary functions and tests for functions
     // create executable
+
+    string direct1 = "", direct2 = "";
+    vector<string> direct1_files, direct2_files;
+    
+    if(getDirectFiles(direct1, direct1_files))
+        cout << "Success: retrieving Directory 1 files" << endl;
+    else
+        cout << "Failed: to retrieve Directory 1 files" << endl;
+    
+    if(getDirectFiles(direct2, direct2_files))
+       cout << "Success: retrieving Directory 2 files" << endl;
+    else
+        cout << "Failed: to retrieve Directory 2 files" << endl;
+
+
+    unordered_map<size_t, string> direct1_hash;
+
+    if(hashDirectFiles(direct1_files, direct1_hash))
+        cout << "Success: Hash of Directory 1" << endl;
+    else   
+        cout << "Failed: Hash of Directory 1" << endl;
+
+
+    vector<string> shared_files, direct2_only;
+
+    if(compareDirect(direct1_hash, direct2_files, shared_files, direct2_only))
+        cout << "Success: Compared all elements in Directory 2" << endl;
+    else   
+        cout << "Failed: Check direct1_hash, direct2_files, or either output vectors" << endl;
+
+    
+    vector<string> direct1_only;
+
+    if(clearHashDirect(direct1_hash, direct1_only))
+        cout << "Success: Cleared unordered_map of Directory 1" << endl;
+    else    
+        cout << "Failed: Unable to clear unordered_map of Directory 1" << endl;
+
+
+    vector<string> outputFiles = {"shared_files", "direct1_only", "direct2_only"};
+
+    if(writeFiles(outputFiles[0], shared_files))
+        cout << "Success: Files have been written to shared files" << endl;
+    else    
+        cout << "Failed: Files cannot be written to shared files" << endl;
+
+    if(writeFiles(outputFiles[1], direct1_only))
+        cout << "Success: Files have been written to Directory 1" << endl;
+    else    
+        cout << "Failed: Files cannot be written to Directory 1" << endl;
+    
+    if(writeFiles(outputFiles[2], direct2_only))
+        cout << "Success: Files have been written to Directory 2" << endl;
+    else    
+        cout << "Failed: Files cannot be written to Directory 2" << endl;
+
     return 0;
 }
