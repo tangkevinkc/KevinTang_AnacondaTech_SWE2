@@ -36,9 +36,6 @@ bool writeFiles(string filename, vector<string> &files){
 }
 
 int main(){ 
-    // call necessary functions and tests for functions
-    // create executable
-
     string direct1 = "", direct2 = "";
     vector<string> direct1_files, direct2_files;
     
