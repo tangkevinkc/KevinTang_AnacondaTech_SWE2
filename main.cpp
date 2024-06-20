@@ -67,8 +67,7 @@ bool hashDirectOneFiles(string path, unordered_map<size_t, string> &hash_files){
     return false;
 }
 
-bool compareDirect(unordered_map<size_t, string> &direct1_hash, string path2, 
-                   vector<string> &shared_files, vector<string> &direct2_only){
+bool compareDirect(unordered_map<size_t, string> &direct1_hash, string path2, vector<string> &shared_files, vector<string> &direct2_only){
     if(path2 != ""){
         filesystem::directory_iterator dir2(filesystem::current_path() / "files" / path2);
         for(const auto &it : dir2){
@@ -101,6 +100,12 @@ bool compareDirect(unordered_map<size_t, string> &direct1_hash, string path2,
 }
 
 bool clearHashDirect(unordered_map<size_t, string> &direct_hash, vector<string> &direct_only){
+    if(!direct_hash.empty()){
+        for(const auto &pair : direct_hash){
+            direct_only.push_back(pair.second);
+        }
+        return true;
+    }
     return false;
 }
 
@@ -139,22 +144,32 @@ int main(){
     //     cout << "hash value: " << pair.first << ", hash key: " << pair.second << endl;
     // });
 
-    vector<string> shared_files, direct2_only;
+    vector<string> direct1_only, shared_files, direct2_only;
 
     if(compareDirect(direct1_hash, paths[1], shared_files, direct2_only))
         cout << "Success: Compared all elements in Directory 2" << endl;
     else   
         cout << "Failed: Check direct1_hash, direct2_files, or either output vectors" << endl;
 
-    cout << 3 << endl;
-    
-    // vector<string> direct1_only;
+    if(clearHashDirect(direct1_hash, direct1_only))
+        cout << "Success: Cleared unordered_map of Directory 1" << endl;
+    else    
+        cout << "Failed: Unable to clear unordered_map of Directory 1" << endl;
 
-    // if(clearHashDirect(direct1_hash, direct1_only))
-    //     cout << "Success: Cleared unordered_map of Directory 1" << endl;
-    // else    
-    //     cout << "Failed: Unable to clear unordered_map of Directory 1" << endl;
+    cout << "Shared Files: " << endl;
+    for(auto x : shared_files){
+        cout << x << endl;
+    }
+    cout << "Direct1_only Files: " << endl;
+    for(auto x : direct1_only){
+        cout << x << endl;
+    }
+    cout << "Direct2_only Files: " << endl;
+    for(auto x : direct2_only){
+        cout << x << endl;
+    }
 
+    cout << 2 << endl;
 
     // vector<string> outputFiles = {"shared_files", "direct1_only", "direct2_only"};
 
