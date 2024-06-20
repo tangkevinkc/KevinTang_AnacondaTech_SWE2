@@ -1,1 +1,1 @@
-directory2/6.txt
+files/directory2/6.txt

@@ -1,3 +1,4 @@
+// C++ Libraries 
 #include <stdio.h>
 #include <string>
 #include <vector>
@@ -6,6 +7,9 @@
 #include <filesystem>
 #include <algorithm>
 #include <fstream>
+
+// Testing functions
+#include "fileTesting.cpp"
 
 using namespace std;
 
@@ -53,11 +57,11 @@ bool compareDirect(unordered_map<size_t, string> &direct1_hash, string path2, ve
                     size_t hashVal2 = hashKey(data2);
 
                     if(direct1_hash.find(hashVal2) != direct1_hash.end()){
-                        shared_files.push_back("D1: " + direct1_hash[hashVal2] + ", D2: " + path2 + "/" + it.path().filename().string());
+                        shared_files.push_back("direct_1: " + direct1_hash[hashVal2] + ", direct_2: " + path2 + "/" + it.path().filename().string());
                         direct1_hash.erase(hashVal2);
                     }
                     else{
-                        direct2_only.push_back(path2 + "/" + it.path().filename().string());
+                        direct2_only.push_back("files/" + path2 + "/" + it.path().filename().string());
                     }
                 }
                 else{
@@ -96,15 +100,24 @@ bool writeFiles(string filename, vector<string> &files){
 }
 
 int main(){ 
+    removeCurrDirect();
+
+    filesystem::path dir(filesystem::current_path() / "files");
     vector<string> paths;
-    filesystem::directory_iterator directPaths(filesystem::current_path() / "files");
-    for(const auto &name : directPaths){
-        if(name.is_directory()){
-            paths.push_back(name.path().filename().string());
+    if(filesystem::exists(dir)){
+        filesystem::directory_iterator directPaths(filesystem::current_path() / "files");
+        for(const auto &name : directPaths){
+            if(name.is_directory()){
+                paths.push_back(name.path().filename().string());
+            }
+        }
+        if(paths.empty()){
+            cout << "ERROR: Found 0 directories" << endl;
+            exit(0);
         }
     }
-    if(paths.empty()){
-        cout << "ERROR: There is no valid Directories" << endl;
+    else{
+        cout << "ERROR: There is no valid directory path" << endl;
         exit(0);
     }
 
@@ -136,6 +149,8 @@ int main(){
         else    
             cout << "Failed: Files cannot be generated for " << outputFiles[i] << endl;
     }
+
+    cout << 1 << endl;
 
     return 0;
 }
