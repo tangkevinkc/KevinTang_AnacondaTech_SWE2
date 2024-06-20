@@ -116,7 +116,7 @@ int main(){
     else   
         cout << "Failed: Hash of Directory 1" << endl;
 
-    // 0 = shared_files, 1 = direct1_only, 2 = direct2_only
+    // 0 = SHARED_FILES, 1 = DIRECT1_ONLY, 2 = DIRECT2_ONLY
     vector<vector<string>> sortedDirect(3);
 
     if(compareDirect(direct1_hash, paths[1], sortedDirect[0], sortedDirect[2]))
@@ -131,7 +131,7 @@ int main(){
 
     vector<string> outputFiles = {"shared_files.txt", "direct1_only.txt", "direct2_only.txt"};
 
-    for(int i = 0; i < sortedDirect.size(); i++){
+    for(int i = 0; i < outputFiles.size(); i++){
         if(writeFiles(outputFiles[i], sortedDirect[i]))
             cout << "Success: Files have been generate for " << outputFiles[i] << endl;
         else    
