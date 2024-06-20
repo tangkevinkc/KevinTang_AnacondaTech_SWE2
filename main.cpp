@@ -106,7 +106,7 @@ int main(){
     removeCurrDirect();
     int direct1_size = 100, d1_name = 0xFFFF, d1_mod = 0x8888;
     int direct2_size = 100, d2_name = 0xABAB, d2_mod = 0x4444;
-    if(generateTestFiles(direct1_size, direct2_size, d1_name, d1_mod, d2_name, d2_mod)){
+    if(generateTestFiles(direct1_size, d1_name, d1_mod, direct2_size, d2_name, d2_mod)){
         cout << "SUCCESS: created test files" << endl;
     }
     else{
