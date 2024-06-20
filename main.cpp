@@ -9,10 +9,10 @@
 
 using namespace std;
 
-// 1. generate unordered_map<size_t, filepath> for directory 1
+// 1. generate hash values for directory 1 files and place into unordered_map<size_t, filepath>direct1_hash with its filename
 // 2. iterate through directory 2 and generate hash value for each file to use in direct1_hash.find()
 //    if true, there is a shared file, place into shared_files vector, and remove from unordered_map
-//    if false, place directory 2 file into direct2_only vector
+//    if false, place current directory 2 file into direct2_only vector
 // 3. all remaining values of direct1_hash are direct1_only, so move them into the vector and clear map
 // 4. take shared_files, direct1_only, and direct2_only vectors and write to its corresponding new txt files
 
