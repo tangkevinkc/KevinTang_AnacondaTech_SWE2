@@ -7,6 +7,7 @@
 
 using namespace std;
 
+// Removes all current content within the files directory 
 void removeCurrDirect(){
     filesystem::path dir(filesystem::current_path() / "files");
     if(filesystem::exists(dir) && !filesystem::is_empty(dir)){
@@ -21,6 +22,7 @@ void removeCurrDirect(){
     return;
 }
 
+// Generates two directories with input parameters for directory size, file names, amd file contents
 bool generateTestFiles(int direct1_size, int d1_name, int d1_mod, int direct2_size, int d2_name, int d2_mod){
     removeCurrDirect();
     if(direct1_size >= 0 && direct2_size >= 0){

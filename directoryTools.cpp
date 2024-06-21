@@ -18,7 +18,8 @@ using namespace std;
 // 3. all remaining values of direct1_hash are direct1_only, so move them into the vector and clear map
 // 4. take shared_files, direct1_only, and direct2_only vectors and write to its corresponding new txt files
 
-bool validPaths(string filepath, vector<string> &paths){
+// Checks if directory path is valid and places all directories into string vector
+bool validPaths(string filepath, vector<string> &paths){ 
     filesystem::path dir(filesystem::current_path() / filepath);
     if(filesystem::exists(dir)){
         filesystem::directory_iterator directPaths(filesystem::current_path() / "files");
@@ -38,6 +39,8 @@ bool validPaths(string filepath, vector<string> &paths){
     return false;
 }
 
+// Compares only TWO Directories, based on the data within each file, 
+// Creates direct1_only, direct2_only, and shared_files
 bool compareTwoDirect(string filepath){
     vector<string> paths;
     if(!validPaths(filepath, paths)){
