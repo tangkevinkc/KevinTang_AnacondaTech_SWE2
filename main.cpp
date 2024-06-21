@@ -9,8 +9,8 @@
 using namespace std;
 
 int main(){ 
-    int direct1_size = 3, d1_name = 0xAA, d1_mod = 0x2;
-    int direct2_size = 2, d2_name = 0x55, d2_mod = 0x2;
+    int direct1_size = 50, d1_name = 0xAB, d1_mod = 0xF123ACBD;
+    int direct2_size = 50, d2_name = 0x45, d2_mod = 0x28691DEF;
     if(generateTestFiles(direct1_size, d1_name, d1_mod, direct2_size, d2_name, d2_mod)){
         cout << "SUCCESS: Created test files" << endl;
     }

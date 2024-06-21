@@ -1,3 +1,2 @@
 shared_files.txt files: 
 direct_1: files/directory1/0, direct_2: files/directory2/0
-direct_1: files/directory1/170, direct_2: files/directory2/85

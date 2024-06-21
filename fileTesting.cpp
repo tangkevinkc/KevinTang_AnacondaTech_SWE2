@@ -7,7 +7,7 @@
 
 using namespace std;
 
-// Removes all current content within the files directory 
+// Removes all current content within the "files" directory 
 void removeCurrDirect(){
     filesystem::path dir(filesystem::current_path() / "files");
     if(filesystem::exists(dir) && !filesystem::is_empty(dir)){
@@ -22,7 +22,7 @@ void removeCurrDirect(){
     return;
 }
 
-// Generates two directories with input parameters for directory size, file names, amd file contents
+// Generates two directories with input parameters for number of files, file names, amd file contents
 bool generateTestFiles(int direct1_size, int d1_name, int d1_mod, int direct2_size, int d2_name, int d2_mod){
     removeCurrDirect();
     if(direct1_size >= 0 && direct2_size >= 0){
@@ -32,11 +32,11 @@ bool generateTestFiles(int direct1_size, int d1_name, int d1_mod, int direct2_si
         if(CreateDirectory("files/directory2", NULL) == -1){
             cout << "Error Creating directory 2" << endl;
         }
-        for(int i = 0; i < direct1_size; i++){
+        for(int64_t i = 0; i < direct1_size; i++){
             ofstream output("files/directory1/" + to_string(i*d1_name));
             output << i*d1_mod << "\n";
         }
-        for(int i = 0; i < direct2_size; i++){
+        for(int64_t i = 0; i < direct2_size; i++){
             ofstream output("files/directory2/" + to_string(i*d2_name));
             output << i*d2_mod << "\n";
         }
