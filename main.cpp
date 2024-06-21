@@ -102,6 +102,26 @@ using namespace std;
 //     return true;
 // }
 
+bool validPaths(string filepath, vector<string> &paths){
+    filesystem::path dir(filesystem::current_path() / filepath);
+    if(filesystem::exists(dir)){
+        filesystem::directory_iterator directPaths(filesystem::current_path() / "files");
+        for(const auto &name : directPaths){
+            if(name.is_directory()){
+                paths.push_back(name.path().filename().string());
+            }
+        }
+        if(paths.size() != 2){
+            cout << "ERROR: Directory requirements not met" << endl;
+            return false;
+        }
+        cout << "SUCCESS: Retrieved all paths" << endl;
+        return true;
+    }
+    cout << "ERROR: There is no valid directory path" << endl;
+    return false;
+}
+
 bool compareDirect2(vector<string> &paths){
     if(!paths.empty()){
         // Create unordered_map<size_t, string> of Directory 1 with <hash value, file path>
@@ -200,6 +220,7 @@ bool compareDirect2(vector<string> &paths){
         }
         return true;
     }
+    cout << "ERROR: Path Vector is empty" << endl;
     return false;
 }
 
@@ -215,25 +236,11 @@ int main(){
         exit(0);
     }
 
-    filesystem::path dir(filesystem::current_path() / "files");
-
     // 0 = DIRECTORY 1, 1 = DIRECTORY 2
     vector<string> paths; 
-    
-    if(filesystem::exists(dir)){
-        filesystem::directory_iterator directPaths(filesystem::current_path() / "files");
-        for(const auto &name : directPaths){
-            if(name.is_directory()){
-                paths.push_back(name.path().filename().string());
-            }
-        }
-        if(paths.size() != 2){
-            cout << "ERROR: Directory requirements not met" << endl;
-            exit(0);
-        }
-    }
-    else{
-        cout << "ERROR: There is no valid directory path" << endl;
+    string filepath = "files";
+
+    if(!validPaths(filepath, paths)){
         exit(0);
     }
 
