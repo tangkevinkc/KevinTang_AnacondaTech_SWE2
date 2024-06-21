@@ -1,0 +1,20 @@
+# Compiler and compiler flags
+CC = GCC
+CFLAGS = -g -Wall
+
+# Target executable
+TARGET = main.exe
+
+# Source files
+SRCS = main.cpp directoryTools.cpp fileTesting.cpp
+
+# Object files
+OBJS = $(SRCS:.cpp=.o)
+
+# Link the object files
+all: $(TARGET)
+    $(CC) $(CFLAGS) -o $@ $<
+
+# Target cleaning
+clean:
+    $(RM) $(TARGET) $(OBJS)
