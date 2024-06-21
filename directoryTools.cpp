@@ -11,12 +11,12 @@
 
 using namespace std;
 
-// 1. generate hash values for directory 1 files and place into unordered_map<size_t, filepath>direct1_hash with its filename
-// 2. iterate through directory 2 and generate hash value for each file to use in direct1_hash.find()
-//    if true, there is a shared file, place into shared_files vector, and remove from unordered_map
-//    if false, place current directory 2 file into direct2_only vector
-// 3. all remaining values of direct1_hash are direct1_only, so move them into the vector and clear map
-// 4. take shared_files, direct1_only, and direct2_only vectors and write to its corresponding new txt files
+// 1. generate hash values for directory A files and place into unordered_map<size_t, filepath>directA_hash with its filename
+// 2. iterate through directory B and generate hash value for each file to use in directAhash.find()
+//    if true, there is a shared file, place into common vector, and remove from unordered_map
+//    if false, place current directory B file into b_only vector
+// 3. all remaining values of directA_hash are a_only, so move them into the vector and clear map
+// 4. take common, a_only, and b_only vectors and write to its corresponding new txt files
 
 // Checks if directory path is valid and places all directories into string vector
 bool validPaths(string filepath, vector<string> &paths){ 
@@ -40,7 +40,7 @@ bool validPaths(string filepath, vector<string> &paths){
 }
 
 // Compares only TWO Directories, based on the data within each file, 
-// Creates direct1_only, direct2_only, and shared_files
+// Creates a_only, b_only, and common
 bool compareTwoDirect(string filepath){
     vector<string> paths;
     if(!validPaths(filepath, paths)){
@@ -49,17 +49,17 @@ bool compareTwoDirect(string filepath){
 
     if(!paths.empty()){
         // Create unordered_map<size_t, string> of Directory 1 with <hash value, file path>
-        unordered_map<size_t, string> direct1_hash;
+        unordered_map<size_t, string> directA_hash;
         if(paths[0] != ""){
-            filesystem::directory_iterator dir1(filesystem::current_path() / "files" / paths[0]);
-            for(const auto &it : dir1){
+            filesystem::directory_iterator dirA(filesystem::current_path() / "files" / paths[0]);
+            for(const auto &it : dirA){
                 if(it.is_regular_file()){
                     ifstream file(it.path().string());
                     if(file.is_open()){
                         string data((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
                         hash<string> hashKey;
                         size_t hashVal = hashKey(data);
-                        direct1_hash.insert({hashVal, ("files/" + paths[0] + "/" + it.path().filename().string())});
+                        directA_hash.insert({hashVal, ("files/" + paths[0] + "/" + it.path().filename().string())});
                     }
                     else{
                         cout << "ERROR: could not open file" << endl;
@@ -69,28 +69,28 @@ bool compareTwoDirect(string filepath){
                     cout << "Not a valid file: " << paths[0] << "/" << it.path().filename().string() << endl;
                 }
             }
-            cout << "SUCCESS: Hash of Directory 1" << endl;
+            cout << "SUCCESS: Hash of Directory A" << endl;
         }
         else{
-            cout << "FAILED: Hash of Directory 1" << endl;
+            cout << "FAILED: Hash of Directory A" << endl;
             return false;
         }
 
-        // Compare Directory 2 hash values to direct1_hash, and place according variables into shared_files or direct2_only
+        // Compare Directory 2 hash values to directA_hash, and place according variables into common or b_only
         vector<vector<string>> sortedDirect(3);
         if(paths[1] != ""){
-            filesystem::directory_iterator dir2(filesystem::current_path() / "files" / paths[1]);
-            for(const auto &it : dir2){
+            filesystem::directory_iterator dirB(filesystem::current_path() / "files" / paths[1]);
+            for(const auto &it : dirB){
                 if(it.is_regular_file()){
                     ifstream file(it.path().string());
                     if(file.is_open()){
-                        string data2((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
+                        string dataB((istreambuf_iterator<char>(file)), istreambuf_iterator<char>());
                         hash<string> hashKey;
-                        size_t hashVal2 = hashKey(data2);
+                        size_t hashValB = hashKey(dataB);
 
-                        if(direct1_hash.find(hashVal2) != direct1_hash.end()){
-                            sortedDirect[0].push_back("direct_1: " + direct1_hash[hashVal2] + ", direct_2: files/" + paths[1] + "/" + it.path().filename().string());
-                            direct1_hash.erase(hashVal2);
+                        if(directA_hash.find(hashValB) != directA_hash.end()){
+                            sortedDirect[0].push_back("a_file: " + directA_hash[hashValB] + ", b_file: files/" + paths[1] + "/" + it.path().filename().string());
+                            directA_hash.erase(hashValB);
                         }
                         else{
                             sortedDirect[2].push_back("files/" + paths[1] + "/" + it.path().filename().string());
@@ -104,31 +104,31 @@ bool compareTwoDirect(string filepath){
                     cout << "Not a valid file: " << paths[1] << "/" << it.path().filename().string() << endl;
                 }
             }
-            cout << "SUCCESS: Compared all elements in Directory 2" << endl;
+            cout << "SUCCESS: Compared all elements in Directory B" << endl;
         }
         else{
-            cout << "FAILED: Check direct1_hash, direct2_files, or either output vectors" << endl;
+            cout << "FAILED: Check directA_hash, directB_files, or either output vectors" << endl;
             return false;
         }
 
-        // Place remaining direct1_hash into direct1_only
-        if(!direct1_hash.empty()){
-            for(const auto &pair : direct1_hash){
+        // Place remaining directA_hash into a_only
+        if(!directA_hash.empty()){
+            for(const auto &pair : directA_hash){
                 sortedDirect[1].push_back(pair.second);
             }
-            direct1_hash.clear();
-            cout << "SUCCESS: Cleared unordered_map of Directory 1 into its Vector" << endl;
+            directA_hash.clear();
+            cout << "SUCCESS: Cleared unordered_map of Directory A into its Vector" << endl;
         }
-        else if(direct1_hash.size() == 0){
-            cout << "WARNING: Direct1_hash size 0" << endl;
+        else if(directA_hash.size() == 0){
+            cout << "WARNING: DirectA_hash size 0" << endl;
         }
         else{
-            cout << "FAILED: Unable to clear unordered_map of Directory 1" << endl;
+            cout << "FAILED: Unable to clear unordered_map of Directory A" << endl;
             return false;
         }
 
         // Write organized files into txt files
-        vector<string> outputFiles = {"shared_files.txt", "direct1_only.txt", "direct2_only.txt"};
+        vector<string> outputFiles = {"common.txt", "a_only.txt", "b_only.txt"};
         for(int i = 0; i < outputFiles.size() && i < sortedDirect.size() && i < 3; i++){
             if(filesystem::remove(outputFiles[i]) == false){
                 cout << "FAILED: To removed " << outputFiles[i] << endl;

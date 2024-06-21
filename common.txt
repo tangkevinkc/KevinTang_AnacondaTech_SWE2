@@ -1,0 +1,2 @@
+common.txt files: 
+a_file: files/directoryA/0, b_file: files/directoryB/0

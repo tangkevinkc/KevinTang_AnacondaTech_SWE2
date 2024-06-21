@@ -9,9 +9,9 @@
 using namespace std;
 
 int main(){ 
-    int direct1_size = 50, d1_name = 0xAB, d1_mod = 0xF123ACBD;
-    int direct2_size = 50, d2_name = 0x45, d2_mod = 0x28691DEF;
-    if(generateTestFiles(direct1_size, d1_name, d1_mod, direct2_size, d2_name, d2_mod)){
+    int directA_size = 50, A_name = 0xAB, A_mod = 0xF123ACBD;
+    int directB_size = 50, B_name = 0x45, B_mod = 0x28691DEF;
+    if(generateTestFiles(directA_size, A_name, A_mod, directB_size, B_name, B_mod)){
         cout << "SUCCESS: Created test files" << endl;
     }
     else{
@@ -21,7 +21,7 @@ int main(){
 
     string filepath = "files";
     if(compareTwoDirect(filepath)){
-        cout << "SUCCESS: Common, Directory 1, and 2 only files have been generated" << endl;
+        cout << "SUCCESS: common, a_only, and b_only files have been generated" << endl;
     }
     else{
         cout << "FAILED: Files were unable to be generated" << endl;

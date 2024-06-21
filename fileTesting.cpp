@@ -23,25 +23,25 @@ void removeCurrDirect(){
 }
 
 // Generates two directories with input parameters for number of files, file names, amd file contents
-bool generateTestFiles(int direct1_size, int d1_name, int d1_mod, int direct2_size, int d2_name, int d2_mod){
+bool generateTestFiles(int directA_size, int A_name, int A_mod, int directB_size, int B_name, int B_mod){
     removeCurrDirect();
-    if(direct1_size >= 0 && direct2_size >= 0){
-        if(CreateDirectory("files/directory1", NULL) == -1){
-            cout << "Error Creating directory 1" << endl;
+    if(directA_size >= 0 && directB_size >= 0){
+        if(CreateDirectory("files/directoryA", NULL) == -1){
+            cout << "Error Creating directory A" << endl;
         }
-        if(CreateDirectory("files/directory2", NULL) == -1){
-            cout << "Error Creating directory 2" << endl;
+        if(CreateDirectory("files/directoryB", NULL) == -1){
+            cout << "Error Creating directory B" << endl;
         }
-        for(int64_t i = 0; i < direct1_size; i++){
-            ofstream output("files/directory1/" + to_string(i*d1_name));
-            output << i*d1_mod << "\n";
+        for(int64_t i = 0; i < directA_size; i++){
+            ofstream output("files/directoryA/" + to_string(i * A_name));
+            output << i * A_mod << "\n";
         }
-        for(int64_t i = 0; i < direct2_size; i++){
-            ofstream output("files/directory2/" + to_string(i*d2_name));
-            output << i*d2_mod << "\n";
+        for(int64_t i = 0; i < directB_size; i++){
+            ofstream output("files/directoryB/" + to_string(i * B_name));
+            output << i * B_mod << "\n";
         }
         return true;
     }
-    cout << "Direct 1 or 2 size is less than 0" << endl;
+    cout << "Direct A or B size is less than 0" << endl;
     return false;
 }
