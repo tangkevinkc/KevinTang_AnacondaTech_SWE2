@@ -211,7 +211,7 @@ int main(){
         cout << "SUCCESS: Created test files" << endl;
     }
     else{
-        cout << "FAILED: did not create test files" << endl;
+        cout << "FAILED: Did not create test files" << endl;
         exit(0);
     }
 
