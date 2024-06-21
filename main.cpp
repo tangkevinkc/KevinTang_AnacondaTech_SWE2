@@ -208,7 +208,7 @@ int main(){
     int direct1_size = 1000, d1_name = 0xAA, d1_mod = 0x2;
     int direct2_size = 1000, d2_name = 0x55, d2_mod = 0x3;
     if(generateTestFiles(direct1_size, d1_name, d1_mod, direct2_size, d2_name, d2_mod)){
-        cout << "SUCCESS: created test files" << endl;
+        cout << "SUCCESS: Created test files" << endl;
     }
     else{
         cout << "FAILED: did not create test files" << endl;
