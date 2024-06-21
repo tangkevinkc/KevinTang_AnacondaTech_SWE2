@@ -122,7 +122,7 @@ bool validPaths(string filepath, vector<string> &paths){
     return false;
 }
 
-bool compareDirect2(vector<string> &paths){
+bool compareTwoDirect(vector<string> &paths){
     if(!paths.empty()){
         // Create unordered_map<size_t, string> of Directory 1 with <hash value, file path>
         unordered_map<size_t, string> direct1_hash;
@@ -244,7 +244,7 @@ int main(){
         exit(0);
     }
 
-    if(compareDirect2(paths)){
+    if(compareTwoDirect(paths)){
         cout << "SUCCESS: Common, Directory 1, and 2 only files have been generated" << endl;
     }
     else{
